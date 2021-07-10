@@ -5,7 +5,7 @@ spring:
     show-sql: true
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:votacao_db
+    url: jdbc:h2:mem:votacao_db;DATABASE_TO_UPPER=false;INIT=CREATE SCHEMA IF NOT EXISTS votacao_db;
     username: sa
     password:
   h2:

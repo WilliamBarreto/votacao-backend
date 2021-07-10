@@ -1,5 +1,6 @@
-create table Pauta (
-    Id  integer not null auto_increment,
-    Descricao   varchar(500) not null,
-    primary key (Id)
+create table votacao_db.pauta (
+    id          bigint not null auto_increment,
+    nome        varchar(200) not null,
+    descricao   varchar(1000),
+    primary key (id)
 );
