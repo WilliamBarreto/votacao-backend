@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mysqlsrv:
+    image:  mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'votacao_db'
+      MYSQL_ROOT_PASSWORD: 'Pwd@2021'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - "C:/docker/volumes/mysql:/var/lib/mysql"
+networks:
+  votacao-network:
+    driver: brigde
