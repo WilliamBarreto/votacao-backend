@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -104,5 +105,23 @@ public class PautaControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.[0].propriedade", is("descricao")))
                 .andExpect(jsonPath("$.[0].messagem", is("size must be between 1 and 1000")));
+    }
+
+    @Test
+    public void deve_nao_buscar_por_id_pauta_nao_encontrada() throws Exception {
+        this.mockMvc
+                .perform(get("/pautas/10000"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.messagem", is("Pauta 10000 não encontrado")));
+    }
+
+    @Test
+    public void deve_buscar_por_id_pauta() throws Exception {
+        this.mockMvc
+                .perform(get("/pautas/1"))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.nome", is("Aprovação de PLR")))
+                .andExpect(jsonPath("$.descricao", is("Pauta para aprovação de PLR")));
     }
 }

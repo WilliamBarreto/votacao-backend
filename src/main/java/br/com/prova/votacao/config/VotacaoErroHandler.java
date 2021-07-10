@@ -2,6 +2,7 @@ package br.com.prova.votacao.config;
 
 import br.com.prova.votacao.controller.dto.ErroDTO;
 import br.com.prova.votacao.controller.dto.PropriedadeErroDTO;
+import br.com.prova.votacao.exception.RecursoNaoEncontradoException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -35,4 +35,11 @@ public class VotacaoErroHandler {
         String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
         return new PropriedadeErroDTO(fieldError.getField(), message);
     }
+
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ErroDTO handleEntidadeNaoEncontrado(RecursoNaoEncontradoException exception) {
+        return new ErroDTO(exception.getMessage());
+    }
+
 }
