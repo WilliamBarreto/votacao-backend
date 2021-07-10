@@ -26,7 +26,7 @@ public class PautaController {
     }
 
     @PostMapping
-    public ResponseEntity<PautaDTO> cadastrar(@RequestBody @Valid PautaForm form, UriComponentsBuilder uriBuilder, Locale locale) {
+    public ResponseEntity<PautaDTO> cadastrar(@RequestBody @Valid PautaForm form, UriComponentsBuilder uriBuilder) {
         Pauta pauta = pautaService.incluir(form.toEntity());
         URI uri = uriBuilder.path("/pautas/{id}").buildAndExpand(pauta.getId()).toUri();
         return ResponseEntity.created(uri).body(new PautaDTO(pauta));
