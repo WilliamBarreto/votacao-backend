@@ -4,7 +4,17 @@ spring:
       ddl-auto: validate
     show-sql: true
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/votacao_db
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:votacao_db
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  flyway:
+    url: jdbc:h2:mem:votacao_db
+    schemas: votacao_db
+    user: sa
+    password:
+    baselineOnMigrate: true
