@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class SessaoControllerTest extends IntegracaoTests {
@@ -110,4 +111,28 @@ public class SessaoControllerTest extends IntegracaoTests {
                 .andExpect(jsonPath("$.situacao", is("NAO_INICIADA")));
     }
 
+
+    @Test
+    public void deve_nao_abrir_sessao_nao_encontrada() throws Exception {
+        this.mockMvc.perform(put("/sessoes/"+Long.MAX_VALUE+"/abrir"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.messagem", is("Sessão 9223372036854775807 não encontrado")));
+    }
+
+    @Test
+    public void deve_nao_abrir_sessao_fechada() throws Exception {
+        this.mockMvc.perform(put("/sessoes/2/abrir"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.messagem", is("Não é permitido abrir uma sessão na situação FECHADA")));
+    }
+
+    @Test
+    public void deve_abrir_sessao() throws Exception {
+        this.mockMvc.perform(put("/sessoes/1/abrir"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(notNullValue())))
+                .andExpect(jsonPath("$.idPauta", is(2)))
+                .andExpect(jsonPath("$.duracaoEmMinutos", is(1)))
+                .andExpect(jsonPath("$.situacao", is("ABERTA")));
+    }
 }

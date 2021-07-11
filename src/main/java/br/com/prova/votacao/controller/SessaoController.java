@@ -5,10 +5,7 @@ import br.com.prova.votacao.controller.form.SessaoForm;
 import br.com.prova.votacao.domain.Sessao;
 import br.com.prova.votacao.service.SessaoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -31,5 +28,10 @@ public class SessaoController {
         return ResponseEntity.created(uri).body(new SessaoDTO(sessao));
     }
 
+    @PutMapping("/{id}/abrir")
+    public ResponseEntity<SessaoDTO> abrir(@PathVariable Long id) {
+        Sessao sessao = sessaoService.abrir(Sessao.builder().id(id).build());
+        return ResponseEntity.ok(new SessaoDTO(sessao));
+    }
 
 }
