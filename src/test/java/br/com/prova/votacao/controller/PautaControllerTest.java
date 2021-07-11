@@ -1,12 +1,10 @@
 package br.com.prova.votacao.controller;
 
+import br.com.prova.votacao.IntegracaoTests;
 import br.com.prova.votacao.controller.form.PautaForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,9 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-public class PautaControllerTest {
+public class PautaControllerTest extends IntegracaoTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +35,6 @@ public class PautaControllerTest {
                 .andExpect(jsonPath("$.nome", is(pautaForm.getNome())))
                 .andExpect(jsonPath("$.descricao", is(pautaForm.getDescricao())));
     }
-
 
     @Test
     public void deve_nao_cadastrar_pauta_com_conteudo_vazio() throws Exception {
