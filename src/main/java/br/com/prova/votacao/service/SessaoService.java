@@ -9,6 +9,7 @@ import br.com.prova.votacao.repository.SessaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static br.com.prova.votacao.domain.SituacaoSessao.ABERTA;
 import static br.com.prova.votacao.domain.SituacaoSessao.NAO_INICIADA;
@@ -28,9 +29,17 @@ public class SessaoService {
 
     public Sessao incluir(Sessao sessao) {
         sessao.setPauta(buscarPauta(sessao.getPauta()));
+        validar(sessao);
         if(isNull(sessao.getDuracaoEmMinutos())) { sessao.setDuracaoEmMinutos(1); }
         sessao.setSituacao(NAO_INICIADA);
         return repository.save(sessao);
+    }
+
+    private void validar(Sessao sessao) {
+        Optional<Sessao> optionalSessao = repository.findByPautaId(sessao.getPauta().getId());
+        optionalSessao.ifPresent(s -> {
+            throw new ValidacaoException(String.format("A pauta %s já foi vinculada a outra sessão", sessao.getPauta().getId()));
+        });
     }
 
     private Pauta buscarPauta(Pauta pauta) {
