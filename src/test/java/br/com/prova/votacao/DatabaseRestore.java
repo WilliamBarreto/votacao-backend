@@ -44,8 +44,7 @@ public class DatabaseRestore {
 
     private void limparTabelas() throws SQLException {
         logger.debug("Limpando tabelas");
-        List<String> tables = tables();
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, tables.toArray(new String[0]));
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, tables().toArray(new String[0]));
     }
 
     private List<String> tables() throws SQLException {
