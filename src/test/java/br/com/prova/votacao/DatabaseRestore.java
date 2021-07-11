@@ -44,7 +44,9 @@ public class DatabaseRestore {
 
     private void limparTabelas() throws SQLException {
         logger.debug("Limpando tabelas");
+        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
         JdbcTestUtils.deleteFromTables(jdbcTemplate, tables().toArray(new String[0]));
+        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE");
     }
 
     private List<String> tables() throws SQLException {
