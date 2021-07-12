@@ -28,8 +28,8 @@ public class PautaServiceTest extends IntegracaoTests {
     public void deve_buscar_por_id() {
         Pauta pauta = service.buscarPorId(1L);
         assertThat(pauta.getId(), is(1L));
-        assertThat(pauta.getNome(), is("Aprovação de PLR"));
-        assertThat(pauta.getDescricao(), is("Pauta para aprovação de PLR"));
+        assertThat(pauta.getNome(), is("Aprovacao de PLR"));
+        assertThat(pauta.getDescricao(), is("Pauta para aprovacao de PLR"));
     }
 
     @Test

@@ -1,9 +1,9 @@
 insert into votacao_db.pauta
   (id, nome,                       descricao)
 values
-  (1, 'Aprovação de PLR',          'Pauta para aprovação de PLR'),
-  (2, 'Pauta sessão não iniciada', 'Pauta para aprovação de PLR'),
-  (3, 'Pauta sessão fechada',      'Pauta com sessão fechada');
+  (1, 'Aprovacao de PLR',          'Pauta para aprovacao de PLR'),
+  (2, 'Pauta sessao nao iniciada', 'Pauta para aprovacao de PLR'),
+  (3, 'Pauta sessao fechada',      'Pauta com sessao fechada');
 
 
 insert into votacao_db.sessao

@@ -116,7 +116,7 @@ public class PautaControllerTest extends IntegracaoTests {
                 .perform(get("/pautas/1"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.nome", is("Aprovação de PLR")))
-                .andExpect(jsonPath("$.descricao", is("Pauta para aprovação de PLR")));
+                .andExpect(jsonPath("$.nome", is("Aprovacao de PLR")))
+                .andExpect(jsonPath("$.descricao", is("Pauta para aprovacao de PLR")));
     }
 }
