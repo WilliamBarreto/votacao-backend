@@ -6,9 +6,9 @@ API desenvolvida para apresentar como solução prova técnica.
 
 ### Pré-requisitos
 
-* Java versão 11
-* Maven 
-* Docker / Docker Compose
+* Java (11)
+* Apache Maven (3.6.3)
+* Docker (20.10.7) / Docker Compose (1.29.2)
 
 ### Instalando
 
