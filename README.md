@@ -32,13 +32,13 @@ Pronto!
 
 ### Documentação da API
 
-* Swagger(http://localhost:8080/swagger-ui/)
+* Swagger - http://localhost:8080/swagger-ui/
 
 ![Alt text](docs/swagger-ui.png)
 
 ### Kafdrop
 
-* Dashboard(http://localhost:19000/)
+* Dashboard - http://localhost:19000/
 
 ![Alt text](docs/kafdrop.png)
 
