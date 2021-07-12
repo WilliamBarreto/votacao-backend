@@ -1,6 +1,6 @@
 # API Votação - Backend
 
-API desenvolvida para apresentar como solução prova técnica.
+API desenvolvida para proposta de solução técnica.
 
 ## Iniciando
 
