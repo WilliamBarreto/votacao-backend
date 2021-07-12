@@ -32,5 +32,5 @@ Pronto!
 
 ### Documentação da API
 
-Após a instalação, é possível acessar a página de documentação da API atráves do link: http://localhost:8080/swagger/
+Após a instalação, é possível acessar a página de documentação da API atráves do link: http://localhost:8080/swagger-ui/
 
