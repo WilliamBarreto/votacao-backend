@@ -1,5 +1,6 @@
 package br.com.prova.votacao;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,12 +14,17 @@ import java.sql.SQLException;
 @AutoConfigureMockMvc
 public class IntegracaoTests {
 
+
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private DatabaseRestore databaseRestore;
 
     @BeforeEach
     public void reiniciarEstado() throws SQLException {
-        new DatabaseRestore(jdbcTemplate).reset();
+        databaseRestore.reset();
     }
 
+    @AfterEach
+    public void limparEstado() throws SQLException {
+        databaseRestore.limparTabelas();
+    }
 }

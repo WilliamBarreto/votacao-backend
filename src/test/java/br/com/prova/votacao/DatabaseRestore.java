@@ -2,11 +2,13 @@ package br.com.prova.votacao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.stereotype.Component;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.sql.Connection;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+@Component
 public class DatabaseRestore {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -42,10 +45,12 @@ public class DatabaseRestore {
         DatabasePopulatorUtils.execute(populator, requireNonNull(jdbcTemplate.getDataSource()));
     }
 
-    private void limparTabelas() throws SQLException {
+    public void limparTabelas() throws SQLException {
         logger.debug("Limpando tabelas");
         jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, tables().toArray(new String[0]));
+        List<String> tables = tables();
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, tables.toArray(new String[0]));
+        tables.forEach(table -> jdbcTemplate.execute("ALTER TABLE "+table+" ALTER COLUMN id RESTART WITH 1"));
         jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE");
     }
 
