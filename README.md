@@ -32,5 +32,22 @@ Pronto!
 
 ### Documentação da API
 
-Após a instalação, é possível acessar a página de documentação da API atráves do link: http://localhost:8080/swagger-ui/
+* Swagger(http://localhost:8080/swagger-ui/)
+
+![Alt text](docs/swagger-ui.png)
+
+### Kafdrop
+
+* Dashboard(http://localhost:19000/)
+
+![Alt text](docs/kafdrop-message.png)
+
+* Topic
+
+![Alt text](docs/kafdrop-message.png)
+
+* Message
+
+![Alt text](docs/kafdrop-message.png)
+
 
