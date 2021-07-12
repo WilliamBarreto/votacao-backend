@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,10 @@ public class VotacaoErroHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ErroDTO> handleErroArgumentos(MethodArgumentNotValidException exception) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        return fieldErrors.stream().map(this::toPropriedadeErroDTO).collect(Collectors.toList());
+        return fieldErrors.stream()
+                .map(this::toPropriedadeErroDTO)
+                .sorted(Comparator.comparing(PropriedadeErroDTO::getPropriedade))
+                .collect(Collectors.toList());
     }
 
     private PropriedadeErroDTO toPropriedadeErroDTO(FieldError fieldError) {
