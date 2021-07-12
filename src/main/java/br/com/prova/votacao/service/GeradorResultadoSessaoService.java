@@ -31,10 +31,11 @@ public class GeradorResultadoSessaoService {
     }
 
     @Transactional(value = REQUIRES_NEW)
-    public void gerar(Sessao sessao) {
+    public ResultadoSessao gerar(Sessao sessao) {
         Sessao sessaoFechada = sessaoService.fechar(sessao);
         ResultadoSessao resultadoSessao = salvarResultadoSessao(sessaoFechada);
-        // Chamar producer para postar no servido de mensageria
+        // Chamar producer para postar no servidor de mensageria
+        return resultadoSessao;
     }
 
     private ResultadoSessao salvarResultadoSessao(Sessao sessao) {
