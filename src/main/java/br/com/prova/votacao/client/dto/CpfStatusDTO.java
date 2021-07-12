@@ -7,4 +7,10 @@ public class CpfStatusDTO {
 
     private StatusVoto status;
 
+    public CpfStatusDTO() {
+    }
+
+    public CpfStatusDTO(StatusVoto status) {
+        this.status = status;
+    }
 }

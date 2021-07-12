@@ -6,6 +6,7 @@ import br.com.prova.votacao.client.dto.StatusVoto;
 import br.com.prova.votacao.domain.Sessao;
 import br.com.prova.votacao.domain.SituacaoSessao;
 import br.com.prova.votacao.domain.Voto;
+import br.com.prova.votacao.exception.RecursoNaoEncontradoException;
 import br.com.prova.votacao.exception.ValidacaoException;
 import br.com.prova.votacao.repository.VotoCount;
 import br.com.prova.votacao.repository.VotoRepository;
@@ -34,7 +35,11 @@ public class VotoService {
     }
 
     private Sessao buscarSessao(Voto voto) {
-        return sessaoService.buscarPorId(voto.getSessao().getId());
+        try {
+            return sessaoService.buscarPorId(voto.getSessao().getId());
+        } catch (RecursoNaoEncontradoException e) {
+            throw new ValidacaoException(e.getMessage());
+        }
     }
 
     private void validar(Voto voto) {
