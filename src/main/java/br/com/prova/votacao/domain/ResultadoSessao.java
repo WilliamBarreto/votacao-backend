@@ -36,4 +36,5 @@ public class ResultadoSessao {
     @NotNull
     @PositiveOrZero
     private Integer quantidadeVotosNao;
+
 }

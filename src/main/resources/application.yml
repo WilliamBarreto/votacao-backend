@@ -12,3 +12,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  kakfa:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

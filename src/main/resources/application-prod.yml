@@ -8,3 +8,8 @@ spring:
     url: jdbc:mysql://mysqlsrv:3306/votacao_db?currentSchema=votacao_db
     username: root
     password: root
+  kakfa:
+    producer:
+      bootstrap-servers: kafka:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

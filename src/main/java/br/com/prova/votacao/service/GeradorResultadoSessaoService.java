@@ -3,6 +3,7 @@ package br.com.prova.votacao.service;
 import br.com.prova.votacao.domain.OpcaoVoto;
 import br.com.prova.votacao.domain.ResultadoSessao;
 import br.com.prova.votacao.domain.Sessao;
+import br.com.prova.votacao.producer.SessaoEncerradaProducer;
 import br.com.prova.votacao.repository.VotoCount;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +22,22 @@ public class GeradorResultadoSessaoService {
     private final SessaoService sessaoService;
     private final VotoService votoService;
     private final ResultadoSessaoService resultadoSessaoService;
+    private final SessaoEncerradaProducer sessaoEncerradaProducer;
 
     public GeradorResultadoSessaoService(SessaoService sessaoService,
                                          VotoService votoService,
-                                         ResultadoSessaoService resultadoSessaoService) {
+                                         ResultadoSessaoService resultadoSessaoService, SessaoEncerradaProducer sessaoEncerradaProducer) {
         this.sessaoService = sessaoService;
         this.votoService = votoService;
         this.resultadoSessaoService = resultadoSessaoService;
+        this.sessaoEncerradaProducer = sessaoEncerradaProducer;
     }
 
     @Transactional(value = REQUIRES_NEW)
     public ResultadoSessao gerar(Sessao sessao) {
         Sessao sessaoFechada = sessaoService.fechar(sessao);
         ResultadoSessao resultadoSessao = salvarResultadoSessao(sessaoFechada);
-        // Chamar producer para postar no servidor de mensageria
+        sessaoEncerradaProducer.sendMessage(resultadoSessao);
         return resultadoSessao;
     }
 
