@@ -40,11 +40,11 @@ Pronto!
 
 * Dashboard(http://localhost:19000/)
 
-![Alt text](docs/kafdrop-message.png)
+![Alt text](docs/kafdrop-dashboard.png)
 
 * Topic
 
-![Alt text](docs/kafdrop-message.png)
+![Alt text](docs/kafdrop-topic.png)
 
 * Message
 
