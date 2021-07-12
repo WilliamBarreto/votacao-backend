@@ -8,4 +8,4 @@ spring:
     url: jdbc:mysql://mysqlsrv:3306/votacao_db?currentSchema=votacao_db
     username: root
     password: Pwd@2021
-kafka.server: kafka:9092
+kafka.server: kafka:29092
