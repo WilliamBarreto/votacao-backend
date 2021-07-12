@@ -15,20 +15,19 @@ API desenvolvida para apresentar como solução prova técnica.
 Baixe o projeto para um diretório local, e execute os seguintes comandos abaixo:
 
 1. Empacotando o projeto 
-    
-    
-    mvn clean package
+```
+mvn clean package
+```
 
 2. Executando build de containers
-
-
-    docker-compose build
+```
+docker-compose build
+```
 
 3. Executando containers atráves do docker-compose
-
-
-    docker-compose up -d
-
+```
+docker-compose up -d
+```
 Pronto!
 
 ### Documentação da API
