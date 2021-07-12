@@ -8,7 +8,7 @@ API desenvolvida para apresentar como solução prova técnica.
 
 * Java versão 11
 * Maven 
-* Docker
+* Docker / Docker Compose
 
 ### Instalando
 
