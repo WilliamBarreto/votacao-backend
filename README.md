@@ -40,7 +40,7 @@ Pronto!
 
 * Dashboard(http://localhost:19000/)
 
-![Alt text](docs/kafdrop-dashboard.png)
+![Alt text](docs/kafdrop.png)
 
 * Topic
 
