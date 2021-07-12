@@ -7,10 +7,11 @@ import br.com.prova.votacao.domain.Sessao;
 import br.com.prova.votacao.domain.SituacaoSessao;
 import br.com.prova.votacao.domain.Voto;
 import br.com.prova.votacao.exception.ValidacaoException;
+import br.com.prova.votacao.repository.VotoCount;
 import br.com.prova.votacao.repository.VotoRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,9 +51,7 @@ public class VotoService {
     }
 
     private void validarPeriodoVotacaoAberto(Voto voto) {
-        Sessao sessao = voto.getSessao();
-        LocalDateTime dataEncerramento = sessao.getDataAbertura().plusMinutes((long) sessao.getDuracaoEmMinutos());
-        if(dataEncerramento.isBefore(LocalDateTime.now())) {
+        if(sessaoService.isExpirada(voto.getSessao())) {
             throw new ValidacaoException("O período de votação foi encerrado");
         }
     }
@@ -69,4 +68,7 @@ public class VotoService {
         optionalVoto.ifPresent(v -> { throw new ValidacaoException("Cpf já possui voto cadastrado para a sessão"); });
     }
 
+    public List<VotoCount> computar(Long idSessao) {
+        return repository.countVotoByTotalVoto(idSessao);
+    }
 }

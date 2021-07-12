@@ -9,10 +9,10 @@ import br.com.prova.votacao.repository.SessaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
-import static br.com.prova.votacao.domain.SituacaoSessao.ABERTA;
-import static br.com.prova.votacao.domain.SituacaoSessao.NAO_INICIADA;
+import static br.com.prova.votacao.domain.SituacaoSessao.*;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
@@ -60,10 +60,28 @@ public class SessaoService {
         return repository.save(sessaoDb);
     }
 
+    public Sessao fechar(Sessao sessao) {
+        Sessao sessaoDb = buscarPorId(sessao.getId());
+        if(!ABERTA.equals(sessaoDb.getSituacao())){
+            throw new ValidacaoException("Não é permitido fechar uma sessão na situação " + sessaoDb.getSituacao());
+        }
+        sessaoDb.setDataFechamento(LocalDateTime.now());
+        sessaoDb.setSituacao(FECHADA);
+        return repository.save(sessaoDb);
+    }
+
     public Sessao buscarPorId(Long id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException(format("Sessão %d não encontrado", id)));
     }
 
+    public List<Sessao> buscarSessoesAbertas() {
+        return repository.findBySituacao(ABERTA);
+    }
+
+    public boolean isExpirada(Sessao sessao) {
+        LocalDateTime dataEncerramento = sessao.getDataAbertura().plusMinutes((long) sessao.getDuracaoEmMinutos());
+        return dataEncerramento.isBefore(LocalDateTime.now());
+    }
 }
