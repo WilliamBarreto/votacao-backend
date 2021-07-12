@@ -12,6 +12,22 @@ services:
       - '3306'
     volumes:
       - "C:/docker/volumes/mysql:/var/lib/mysql"
+    networks:
+      - votacao-network
+
+  votacao-app:
+    container_name: votacao-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: votacao-app
+    ports:
+      - '8080:8080'
+    networks:
+      - votacao-network
+    depends_on:
+      - mysqlsrv
+
 networks:
   votacao-network:
-    driver: brigde
+    driver: bridge
