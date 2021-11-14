@@ -1,4 +1,4 @@
-# API Votação - Backend
+# Votação - Microservice
 
 API desenvolvida para proposta de solução técnica.
 
